@@ -1,0 +1,174 @@
+%!TEX program = xelatex
+%!BIB program = bibtex
+
+\documentclass[cn,black,10pt,normal]{elegantnote}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{ulem}
+
+\newcommand{\upcite}[1]{\textsuperscript{\textsuperscript{\cite{#1}}}}
+% \newcommand{\setParDis}{\setlength {\parskip} {0.2cm} }
+% \newcommand{\setParDef}{\setlength {\parskip} {0pt} }
+
+\lstset{%
+basicstyle=\linespread{0.8}\tt,
+frame=single, %把代码用带有阴影的框圈起来
+breaklines=true, %对过长的代码自动换行
+}
+
+\title{Project 9min: 学术支援平台\\\small{Part 0: Project Proposal}}
+\author{杨鑫   \;1950787\\李乐天 \;1950848\\孟宇   \;1951477\\姜文渊 \;1951510\\杨淳屹 \;1953824\\}
+\institute{School of Software Engineering, Tongji University}
+\version{0.10}
+\date{2022年3月15日}
+
+\begin{document}
+
+\maketitle
+
+\section{Main goals}
+
+\subsection{Background}
+作为大学生，在专业课程的学习过程中，会遇到各种各样“不大”的问题，例如：阅读文献时，某个领域特定的词汇用法，在互联网上无法搜索到，这样一个小的问题显然不适合大动干戈去起草一篇邮件寻求导师的帮助；又如：正在企图运行其它实验室的祖传代码时，遇到了环境配置的问题，而正常渠道能够查阅到的信息所知甚少；又如：完成了某个作业后，希望获取一些评价和反馈，但又不想发布到公共平台上从而违反Academic Integrity的要求。
+
+这些“不大”的问题通常有如下的特点：
+\begin{enumerate}
+    \item 它们需要较深的专业知识以及较多特定领域的经验才能解决
+    \item 但它们对于专业人士而言通常不复杂
+    \item 它们通常具有较强的时效性
+\end{enumerate}
+这三个特点导致了本科生们想要获得这样的学术问题的帮助就较为困难，而解决这样的问题较为合适的人群就是本科生的同辈（包括但不限于不同专业的同学、学长等）。
+
+\subsection{Our goals}
+我们的目标就是这类需求能够找到合适的供给。
+
+本项目的主要目标是构建一个C2C的本科生学术支援平台，并将其逻辑抽象出来供其它领域特定需求平台复用。
+
+从非技术的层面来讲，我们的项目希望：
+\begin{enumerate}
+    \item 分析本科生在学习过程中能够被同辈（包括但不限于不同专业的同学、学长等）满足的学术需求
+    \item 提供给本科生发布和解决这些需求的平台
+    \item 利用本科生使用平台的特征，向本科生提供个性化的接受和提供学术支援的渠道
+\end{enumerate}
+
+
+
+从技术的层面来讲，我们的项目希望：
+\begin{enumerate}
+    \item 利用先进前后端技术，搭建面对领域特定群体的需求和供给的跨平台C2C服务平台
+    \item 利用数据科学技术，实现对平台的合理运营
+    \item 将业务逻辑和实现框架分离，使得我们的项目能被其它特定领域复用
+\end{enumerate}
+
+\section{Main functionality and characteristics}
+
+本项目的主要功能分为四大部分：
+\begin{enumerate}
+    \item 需求侧：发布学术支援的需求单，邀请合适的服务提供者，管理预算，举报与申诉
+    \item 供给侧：获得推荐的订单，查询与筛选订单，管理服务质量，管理收入
+    \item 平台侧：审核用户资质，内容审核，数据挖掘，用户画像
+    \item 开发者：获取常用API进行二次开发，方便地复用本项目
+\end{enumerate}
+
+本项目的主要特征：
+\begin{enumerate}
+    \item 以需求为中心的C2C平台
+    \item 领域特定服务，用户成分简单
+    \item 时效性服务
+    \item 注重安全与隐私管理
+    \item 项目高度开放，高度可复用
+\end{enumerate}
+
+
+\section{Intended users and key usability goals}
+
+目标用户：中国在校本科生（需求侧与供给侧），第三方开发者
+用户如何受益：
+\begin{enumerate}
+    \item 需求侧：得到及时、专业的学术支援
+    \item 供给侧：弹性工作时间，利用专业特定知识获得客观的收入
+    \item 第三方开发者：获得特定领域的供给和需求的数据，获得面向特定领域人群推广的渠道
+\end{enumerate}
+
+\section{Analysis of Existing Similar Products}
+
+\begin{enumerate}
+    \item 目前市场上只有一些面向学生全体的搜题软件，如小猿搜题、学小易，或者一对多的问答类型软件，如知乎，而不存在直接面向大学生并能够提供全方位、个人对个人的学术支持的应用软件。
+    \item 搜题软件只适用于帮助用户完成课后习题或模拟试卷等材料中的题目，主要功能是用于搜索和筛选已经存在并出版的题目的答案；知乎等问答软件以科普和知识分享为主，对于具有普适性的公开问题提供了一人问题对多人回答的解决。然而这类应用对于绝大部分有一定开放性而缺少普适性的个人特定学术需求是无法满足的，如学术论文的润色、考前知识梳理、工程项目外包、环境配置等，在这一类需求上，用户需要应用能够提供一对一的，持续的帮助。
+    \item 问答类软件和搜题类软件的所有内容均在线上发生，无法对一些学术支持需求提供线下帮助，如实地考察的向导、参观调研的联络、短期学术辅导等。
+    \item 小猿搜题等软件的问题解答通常是由运营方提供，而知乎等问答平台在提问方与解答方之间则通常不设置金钱交易，因此无法满足一些有能力为他人提供学术帮助，同时希望获取一定报酬的用户的需求。
+\end{enumerate}
+
+\section{Novelty and Enhancements}
+
+\begin{enumerate}
+    \item 平台对所有学生和学术工作者开放，每个用户既可以付出报酬提出需求也可以帮助他人专区酬劳。
+    \item 提出需求时能够客制化地进行需求定制，如服务的线上线下、时间地点、各种学术支持的内容等。
+    \item 为学术支援的需求和解决提供了C2C模式平台，发布需求时一对多，有人接单后一对一并提供持续帮助的平台支持。
+\end{enumerate}
+
+\section{Team organization and preliminary project planning}
+
+我们的项目团队由五位大二的软件工程专业的本科生构成。本团队成员在前后端开发，项目设计与开发中都有过一定经验，整体上有比较完整的知识体系和开发流程思维。
+计划如下：
+
+\paragraph{第一阶段：}严格约定项目初期的需求，功能以及它们的大体实现思路；设计前端大体界面；确定所需的数据信息、类型、以及之间的关系，建立符合一定规范约束的数据库并填入一些测试数据。
+
+\paragraph{第二阶段：}制作前端界面；设计后端架构；搭建网络服务器；发现处理系统的细节问题；约定金钱交易等相关的协议。
+
+\paragraph{第三阶段：}设计前后端交互的 API 以及后端与数据库交互的 ORM 映射框架与类 SQL 语言；对一部分简单的功能进行实现并测试。
+
+\paragraph{第四阶段：}处理更加复杂但重要的功能；检测前端界面和网站的安全性，防止遭受信息泄露和受到恶意攻击；根据具体功能的实现等灵活微调前端界面和 API 接口。
+
+\paragraph{第五阶段：}完成初期总体功能的实现，进行多次测试并修改；网页端部署完成后尝试将其移植到手机端，并进行相应的修整工作。
+
+\paragraph{迅速迭代} 获得反馈后重复上面的五个阶段，稳定后进行常规运维管理。
+
+
+\section{Engineering process and methodologies}
+
+流程概览：
+\begin{enumerate}
+    \item 定义问题
+    \item 背景调查
+    \item 明确需求
+    \item 头脑风暴解决方案
+    \item 开发解决方案
+    \item 构建原型
+    \item 测试和重新设计
+    \item 沟通结果
+\end{enumerate}
+
+我们团队将采用敏捷软件开发方式，这样在软件开发过程中可以有一个较高的透明度和灵活性。开发人员之间以及与客户（可以采用问卷等方式获取他们的一些信息）之间可以进行便捷的交流，并根据需要来动态的修改计划和开发方式。这将有利于我们将项目的重心放在用户需求上，成员之间的合作也会更加便捷灵活。
+
+我们可能会采用Scrum敏捷软件开发方法组件。 它是轻量级的，并且具有具有远程控制和管理所有项目类型中的迭代和增量的能力。
+
+\section{Team collaboration platforms or systems}
+
+我们计划在项目的过程中使用飞书进行沟通和文档撰写、使用GitHub进行代码协作、使用墨刀进行原型设计、选用VSCode、Intellij IDEA等集成开发环境进行开发。
+
+\section{Potential for further development}
+
+我们的项目可拓展性高，能够承受一定量的并发与容错，能够稳定安全的提供运维服务。我们期望在未来的开发中引入基于大数据与人工智能的方法为平台提供更好的计算服务，例如引入数据仓库技术，在后端维护用户画像以及各种高级推荐算法等等。
+
+\section{Related technologies}
+
+我们的项目总体计划使用前后端分离架构：前端使用Google开发的基于Dart语言的Flutter框架与其相关的组件库和其他第三方API服务进行移动、桌面、Web的跨平台全适配开发，后端使用基于Java和SpringBoot框架与SpringCloud的微服务框架的微服务架构，数据库层级混合使用关系型数据库MySQL与文档型数据库MongoDB以及内存型数据库Redis等数据库系统。前端与后端之间通过基于Http协议的RESTful API与WebSocket协议的API进行交流，后端与数据库之间通过ORM映射框架与类SQL语言进行交流。
+
+\section{Potential Challenges}
+我们的项目中可能遇到的技术挑战有以下几个方面：
+\begin{enumerate}
+    \item 需求分析数据来源较为狭窄
+    \item 前端跨平台解决方案的适配程度与第三方API的支持程度仍然有待测试
+    \item 后端微服务框架的整体架构与部署运维问题有待商榷
+    \item 推广与用户留存管理可能较为困难
+\end{enumerate}
+
+\section{How we would benefit from it}
+本项目中，我们期望能够在实际的开发过程中学习实际工程中编程语言的最佳实践，增加自己对于系统整体观念的把握，了解项目复用的基本思路与基本手段，提高自己的工程素养。
+
+此外，一个好的项目离不开人的参与，因而，我们期待在整个项目推进的过程中，自身的沟通交流能力能够有所长进，从而能够进行有效的需求分析与团队协作。
+
+与常规的课程项目不同，现实的项目面临着诸多约束与挑战，因而我们希望在与ddl和经费问题较量的过程中，能够接触关于风险管理等和商业运作紧密相关的领域，提高自己的综合能力。
+
+\end{document}
